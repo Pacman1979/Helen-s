@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order for Pickup | Helen's Heavenly Bulk Foods</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --sage:#5a7a5a; --sage-dark:#3d5c3d; --sage-light:#8aab7a; --cream:#faf7f0; --warm-white:#fff9f0; --terracotta:#c7603a; --terracotta-dark:#a04a28; --gold:#d4a84b; --charcoal:#2c2c2c; --mid-grey:#666; --light-grey:#e8e4dc; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--charcoal); }
+  .announcement { background: var(--sage-dark); color: #fff; text-align: center; padding: 10px 20px; font-size: 0.85rem; letter-spacing: 0.06em; font-weight: 700; }
+  .announcement span { color: var(--gold); }
+  nav { background: var(--warm-white); border-bottom: 2px solid var(--light-grey); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 70px; position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--sage-dark); line-height: 1.1; text-decoration: none; display: block; }
+  .nav-logo span { color: var(--terracotta); font-style: italic; }
+  .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+  .nav-links a { text-decoration: none; color: var(--charcoal); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--sage-dark); }
+  .nav-cta { background: var(--terracotta) !important; color: #fff !important; padding: 10px 20px; border-radius: 4px; }
+  .page-hero { background: linear-gradient(135deg, #2d4a2d 0%, #3d6b3d 60%, #5a7a3a 100%); padding: 48px 40px 42px; text-align: center; }
+  .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.7rem); font-weight: 900; color: #fff; margin-bottom: 10px; }
+  .page-hero h1 em { font-style: italic; color: var(--gold); }
+  .page-hero p { color: rgba(255,255,255,0.82); font-size: 1rem; max-width: 560px; margin: 0 auto; line-height: 1.7; }
+  .how-it-works { background: var(--warm-white); padding: 32px 40px; border-bottom: 2px solid var(--light-grey); }
+  .steps { display: flex; justify-content: center; gap: 0; max-width: 860px; margin: 0 auto; flex-wrap: wrap; align-items: center; }
+  .step { display: flex; align-items: center; gap: 11px; }
+  .step-num { width: 34px; height: 34px; border-radius: 50%; background: var(--sage-dark); color: #fff; font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-text { font-size: 0.86rem; font-weight: 700; color: var(--charcoal); }
+  .step-text small { font-weight: 400; color: var(--mid-grey); display: block; }
+  .step-arrow { color: var(--light-grey); font-size: 1.4rem; margin: 0 14px; }
+  .price-note { text-align: center; background: #fff8ee; border: 1px solid #f0d89a; padding: 10px 20px; font-size: 0.83rem; color: #7a5a00; }
+  .price-note strong { color: var(--terracotta); }
+  .main-layout { display: grid; grid-template-columns: 1fr 360px; gap: 28px; max-width: 1100px; margin: 0 auto; padding: 32px 40px 60px; align-items: start; }
+  .search-bar { display: flex; gap: 10px; margin-bottom: 20px; }
+  .search-bar input { flex: 1; padding: 11px 14px; border: 2px solid var(--light-grey); border-radius: 6px; font-size: 0.93rem; font-family: 'Lato', sans-serif; color: var(--charcoal); transition: border-color 0.2s; }
+  .search-bar input:focus { outline: none; border-color: var(--sage); }
+  .category-tabs { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 22px; }
+  .cat-tab { padding: 6px 14px; border-radius: 20px; border: 2px solid var(--light-grey); background: #fff; font-size: 0.8rem; font-weight: 700; cursor: pointer; color: var(--mid-grey); transition: all 0.15s; font-family: 'Lato', sans-serif; }
+  .cat-tab:hover { border-color: var(--sage); color: var(--sage-dark); }
+  .cat-tab.active { background: var(--sage-dark); border-color: var(--sage-dark); color: #fff; }
+  .category-section { margin-bottom: 26px; }
+  .category-label { font-size: 0.7rem; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 8px; padding-bottom: 5px; border-bottom: 2px solid var(--light-grey); }
+  .product-grid { display: flex; flex-direction: column; gap: 6px; }
+  .product-row { display: flex; align-items: center; justify-content: space-between; background: #fff; border-radius: 7px; padding: 10px 14px; border: 2px solid transparent; transition: border-color 0.15s; }
+  .product-row:hover { border-color: var(--light-grey); }
+  .product-row.in-cart { border-color: var(--sage-light); background: #f5faf5; }
+  .product-info { flex: 1; }
+  .product-name { font-size: 0.88rem; font-weight: 700; color: var(--charcoal); }
+  .product-org { font-size: 0.7rem; color: var(--sage); font-weight: 700; letter-spacing: 0.04em; }
+  .product-price { font-size: 0.85rem; font-weight: 900; color: var(--sage-dark); margin-right: 14px; white-space: nowrap; font-style: italic; }
+  .qty-control { display: flex; align-items: center; }
+  .qty-btn { width: 28px; height: 28px; border: 2px solid var(--light-grey); background: #fff; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 900; color: var(--sage-dark); transition: background 0.15s; font-family: 'Lato', sans-serif; }
+  .qty-btn:first-child { border-radius: 5px 0 0 5px; }
+  .qty-btn:last-child { border-radius: 0 5px 5px 0; }
+  .qty-btn:hover { background: var(--light-grey); }
+  .qty-display { width: 32px; height: 28px; border: 2px solid var(--light-grey); border-left: none; border-right: none; text-align: center; font-size: 0.88rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .order-sidebar { position: sticky; top: 90px; }
+  .order-card { background: #fff; border-radius: 12px; padding: 26px; box-shadow: 0 4px 22px rgba(0,0,0,0.08); border: 2px solid var(--light-grey); }
+  .order-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 900; color: var(--sage-dark); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--light-grey); }
+  .cart-empty { text-align: center; padding: 28px 10px; color: var(--mid-grey); font-size: 0.88rem; }
+  .cart-empty .icon { font-size: 2.2rem; display: block; margin-bottom: 8px; }
+  .cart-items { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; max-height: 260px; overflow-y: auto; }
+  .cart-item { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; }
+  .cart-item-name { color: var(--charcoal); flex: 1; line-height: 1.3; }
+  .cart-item-qty { color: var(--mid-grey); margin: 0 7px; white-space: nowrap; }
+  .cart-item-remove { background: none; border: none; color: #ccc; cursor: pointer; font-size: 0.95rem; padding: 0 0 0 7px; transition: color 0.15s; }
+  .cart-item-remove:hover { color: var(--terracotta); }
+  .cart-total { display: flex; justify-content: space-between; padding: 10px 0; border-top: 2px solid var(--light-grey); font-weight: 900; font-size: 0.95rem; color: var(--sage-dark); margin-bottom: 14px; }
+  .cart-note { background: #f0f5f0; border-radius: 6px; padding: 10px 12px; font-size: 0.76rem; color: var(--mid-grey); margin-bottom: 14px; line-height: 1.5; }
+  .cart-note strong { color: var(--sage-dark); }
+  .order-form { display: flex; flex-direction: column; gap: 9px; }
+  .order-form label { font-size: 0.75rem; font-weight: 700; color: var(--mid-grey); letter-spacing: 0.05em; text-transform: uppercase; }
+  .order-form input, .order-form select, .order-form textarea { padding: 10px 13px; border: 2px solid var(--light-grey); border-radius: 5px; font-size: 0.86rem; font-family: 'Lato', sans-serif; color: var(--charcoal); transition: border-color 0.2s; background: #fff; }
+  .order-form input:focus, .order-form select:focus, .order-form textarea:focus { outline: none; border-color: var(--sage); }
+  .order-form textarea { resize: vertical; min-height: 64px; }
+  .submit-btn { padding: 14px; background: var(--terracotta); color: #fff; border: none; border-radius: 5px; font-weight: 900; font-size: 0.92rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; font-family: 'Lato', sans-serif; transition: background 0.2s; box-shadow: 0 4px 14px rgba(199,96,58,0.3); }
+  .submit-btn:hover { background: var(--terracotta-dark); }
+  .success-msg { display: none; text-align: center; padding: 28px 16px; }
+  .success-msg .icon { font-size: 2.8rem; display: block; margin-bottom: 10px; }
+  .success-msg h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--sage-dark); margin-bottom: 7px; }
+  .success-msg p { font-size: 0.85rem; color: var(--mid-grey); line-height: 1.6; }
+  .no-results { text-align: center; padding: 40px; color: var(--mid-grey); display: none; }
+  footer { background: #1a2a1a; color: rgba(255,255,255,0.5); text-align: center; padding: 26px 20px; font-size: 0.8rem; }
+  footer a { color: var(--gold); text-decoration: none; }
+  @media (max-width: 820px) {
+    .main-layout { grid-template-columns: 1fr; padding: 22px 18px 50px; }
+    .order-sidebar { position: static; }
+    nav { padding: 0 18px; } .nav-links { display: none; }
+    .how-it-works { padding: 24px 18px; }
+    .step-arrow { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="announcement">🌿 Click & Collect — Order Online, Pick Up In Store, Pay at the Counter · <span>Open 7 Days</span></div>
+<nav>
+  <a href="index.html" class="nav-logo">Helen's <span>Heavenly</span><br>Bulk Foods</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#story">Our Story</a></li>
+    <li><a href="index.html#naturopath">Naturopath</a></li>
+    <li><a href="index.html#hours">Hours</a></li>
+    <li><a href="order.html" class="nav-cta">Order for Pickup</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <h1>Order Online, <em>Pick Up In Store</em></h1>
+  <p>Browse our most popular packaged products, build your order, and we'll have it ready and waiting. Pay at the counter when you collect — no fuss, no fees.</p>
+</div>
+
+<div class="how-it-works">
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-text">Browse & Add<small>Choose your products</small></div></div>
+    <div class="step-arrow">→</div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Submit Order<small>Name & pickup time</small></div></div>
+    <div class="step-arrow">→</div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">We Pack It<small>Ready on arrival</small></div></div>
+    <div class="step-arrow">→</div>
+    <div class="step"><div class="step-num">4</div><div class="step-text">Pay In Store<small>Cash or card at counter</small></div></div>
+  </div>
+</div>
+
+<div class="price-note">
+  <strong>Note on prices:</strong> Prices shown are indicative and will be confirmed at the counter. Bulk products are priced by weight — final price may vary slightly. All prices include GST.
+</div>
+
+<div class="main-layout">
+  <div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="🔍  Search products (e.g. cashews, lion's mane, chamomile...)">
+    </div>
+    <div class="category-tabs" id="categoryTabs">
+      <button class="cat-tab active" data-cat="all">All Products</button>
+      <button class="cat-tab" data-cat="nuts">Nuts & Seeds</button>
+      <button class="cat-tab" data-cat="grains">Grains & Legumes</button>
+      <button class="cat-tab" data-cat="baking">Cooking & Baking</button>
+      <button class="cat-tab" data-cat="choc">Chocolate & Carob</button>
+      <button class="cat-tab" data-cat="teas">Teas & Herbal Blends</button>
+      <button class="cat-tab" data-cat="supps">Supplement Powders</button>
+      <button class="cat-tab" data-cat="eco">Eco Cleaning & Beauty</button>
+    </div>
+    <div id="productsContainer"></div>
+    <div class="no-results" id="noResults">No products found — try a different search term or browse all categories.</div>
+  </div>
+
+  <div class="order-sidebar">
+    <div class="order-card">
+      <h3>🛒 Your Order</h3>
+      <div id="cartEmpty" class="cart-empty"><span class="icon">🧺</span>Add products from the left to start your order</div>
+      <div id="cartContent" style="display:none">
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-total"><span>Est. Total</span><span id="cartTotal">TBC in store</span></div>
+        <div class="cart-note"><strong>💳 Pay in store</strong> — no online payment needed. Prices confirmed at counter. We'll have your order packed and ready.</div>
+        <div class="order-form" id="orderForm">
+          <label>Your Name *</label>
+          <input type="text" id="custName" placeholder="e.g. Sarah Johnson">
+          <label>Phone Number *</label>
+          <input type="tel" id="custPhone" placeholder="e.g. 0412 345 678">
+          <label>Preferred Pickup Time *</label>
+          <select id="pickupTime">
+            <option value="">— Select a time —</option>
+            <option>Today — Morning (8am–11am)</option>
+            <option>Today — Midday (11am–1pm)</option>
+            <option>Today — Afternoon (1pm–5pm)</option>
+            <option>Tomorrow — Morning (8am–11am)</option>
+            <option>Tomorrow — Midday (11am–1pm)</option>
+            <option>Tomorrow — Afternoon (1pm–5pm)</option>
+            <option>Another time — I'll call ahead</option>
+          </select>
+          <label>Notes (optional)</label>
+          <textarea id="custNotes" placeholder="Substitutions, allergies, special requests..."></textarea>
+          <button class="submit-btn" onclick="submitOrder()">Place My Order →</button>
+        </div>
+      </div>
+      <div class="success-msg" id="successMsg">
+        <span class="icon">✅</span>
+        <h3>Order Received!</h3>
+        <p>Thanks! We'll have your order packed and ready. See you soon — pay at the counter when you arrive.</p>
+        <br><p style="font-size:0.76rem; color:#bbb">Questions? Call us or pop in.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Helen's Heavenly Bulk Foods · 2/29 James St, Burleigh Heads QLD 4220 · Open 7 Days</p>
+  <p style="margin-top:7px"><a href="index.html">← Back to Homepage</a></p>
+</footer>
+
+<script>
+// ── PRODUCTS — real names from Helen's existing stock list ──
+// Prices are TBC placeholders (Helen to confirm). Marked organic where listed.
+// Only packaged/non-bin items suitable for Click & Collect included.
+const PRODUCTS = [
+  // NUTS & SEEDS — packaged varieties
+  {id:1,  cat:"nuts", name:"Almonds Raw", org:true,  note:"Insecticide Free · 500g bag"},
+  {id:2,  cat:"nuts", name:"Almonds — Certified Organic", org:true, note:"500g bag"},
+  {id:3,  cat:"nuts", name:"Almonds Roasted Unsalted", org:false, note:"500g bag"},
+  {id:4,  cat:"nuts", name:"Almonds Activated", org:false, note:"500g bag"},
+  {id:5,  cat:"nuts", name:"Almond Meal Blanched", org:false, note:"500g bag"},
+  {id:6,  cat:"nuts", name:"Brazil Nuts Raw — Certified Organic", org:true, note:"500g bag"},
+  {id:7,  cat:"nuts", name:"Cashews Whole Raw — Certified Organic", org:true, note:"500g bag"},
+  {id:8,  cat:"nuts", name:"Cashews Roasted & Unsalted — Organic", org:true, note:"500g bag"},
+  {id:9,  cat:"nuts", name:"Cashew Pieces Raw — Certified Organic", org:true, note:"500g bag"},
+  {id:10, cat:"nuts", name:"Hazelnuts Raw — Certified Organic", org:true, note:"500g bag"},
+  {id:11, cat:"nuts", name:"Macadamias Raw — Organic & Biodynamic", org:true, note:"500g bag"},
+  {id:12, cat:"nuts", name:"Macadamias Raw", org:false, note:"500g bag"},
+  {id:13, cat:"nuts", name:"Mixed Nuts Premium Raw", org:false, note:"500g bag"},
+  {id:14, cat:"nuts", name:"Mixed Nuts Premium Roasted & Unsalted", org:false, note:"500g bag"},
+  {id:15, cat:"nuts", name:"Pecans — Certified Organic", org:true, note:"500g bag"},
+  {id:16, cat:"nuts", name:"Pecans Activated — Certified Organic", org:true, note:"500g bag"},
+  {id:17, cat:"nuts", name:"Walnuts — Certified Organic", org:true, note:"500g bag"},
+  {id:18, cat:"nuts", name:"Walnuts", org:false, note:"500g bag"},
+  {id:19, cat:"nuts", name:"Black Chia Seeds — Certified Organic", org:true, note:"500g bag"},
+  {id:20, cat:"nuts", name:"White Chia Seeds", org:false, note:"500g bag"},
+  {id:21, cat:"nuts", name:"Hemp Seeds — Insecticide Free", org:false, note:"500g bag"},
+  {id:22, cat:"nuts", name:"Pepitas — Certified Organic", org:true, note:"500g bag"},
+  {id:23, cat:"nuts", name:"Pumpkin Seeds Australian", org:false, note:"500g bag"},
+  {id:24, cat:"nuts", name:"Sunflower Seeds — Certified Organic", org:true, note:"500g bag"},
+  {id:25, cat:"nuts", name:"Brown Linseeds (Flaxseeds) — Organic", org:true, note:"500g bag"},
+  {id:26, cat:"nuts", name:"Golden Linseeds (Flaxseeds) — Organic", org:true, note:"500g bag"},
+  {id:27, cat:"nuts", name:"Antioxidant Mix", org:false, note:"500g bag"},
+  {id:28, cat:"nuts", name:"Trail Blend", org:false, note:"500g bag"},
+  {id:29, cat:"nuts", name:"Kombucha Activated Nut Mix — Organic", org:true, note:"500g bag"},
+  {id:30, cat:"nuts", name:"Almond Butter", org:false, note:"Jar"},
+
+  // GRAINS & LEGUMES
+  {id:31, cat:"grains", name:"Quinoa White — Certified Organic", org:true, note:"500g bag"},
+  {id:32, cat:"grains", name:"Quinoa Black — Certified Organic", org:true, note:"500g bag"},
+  {id:33, cat:"grains", name:"Quinoa Red — Certified Organic", org:true, note:"500g bag"},
+  {id:34, cat:"grains", name:"Rolled Oats — Certified Organic", org:true, note:"1kg bag"},
+  {id:35, cat:"grains", name:"Oat Groats — Certified Organic", org:true, note:"1kg bag"},
+  {id:36, cat:"grains", name:"Buckwheat Kernels — Certified Organic", org:true, note:"500g bag"},
+  {id:37, cat:"grains", name:"Activated Buckwheat Kernels — Organic", org:true, note:"500g bag"},
+  {id:38, cat:"grains", name:"Amaranth — Certified Organic", org:true, note:"500g bag"},
+  {id:39, cat:"grains", name:"Pearl Barley", org:false, note:"1kg bag"},
+  {id:40, cat:"grains", name:"Cous Cous — Certified Organic", org:true, note:"500g bag"},
+  {id:41, cat:"grains", name:"Farro", org:false, note:"500g bag"},
+  {id:42, cat:"grains", name:"Hulled Millet — Certified Organic", org:true, note:"500g bag"},
+  {id:43, cat:"grains", name:"Popcorn Kernels — Certified Organic", org:true, note:"500g bag"},
+  {id:44, cat:"grains", name:"Red Lentils", org:false, note:"1kg bag"},
+  {id:45, cat:"grains", name:"Green Lentils", org:false, note:"1kg bag"},
+  {id:46, cat:"grains", name:"Beluga Lentils (Black) — Organic", org:true, note:"500g bag"},
+  {id:47, cat:"grains", name:"Lentils Puy — Certified Organic", org:true, note:"500g bag"},
+  {id:48, cat:"grains", name:"Chickpeas — Certified Organic", org:true, note:"1kg bag"},
+  {id:49, cat:"grains", name:"Mung Beans — Certified Organic", org:true, note:"500g bag"},
+  {id:50, cat:"grains", name:"Black Turtle Beans", org:false, note:"500g bag"},
+  {id:51, cat:"grains", name:"Cannellini Beans", org:false, note:"500g bag"},
+  {id:52, cat:"grains", name:"Kidney Beans", org:false, note:"500g bag"},
+  {id:53, cat:"grains", name:"Soup Mix — Certified Organic", org:true, note:"500g bag"},
+
+  // COOKING & BAKING
+  {id:54, cat:"baking", name:"Coconut Sugar — Certified Organic", org:true, note:"500g bag"},
+  {id:55, cat:"baking", name:"Rapadura Sugar — Certified Organic", org:true, note:"500g bag"},
+  {id:56, cat:"baking", name:"Raw Cane Sugar — Certified Organic", org:true, note:"1kg bag"},
+  {id:57, cat:"baking", name:"Erythritol", org:false, note:"500g bag"},
+  {id:58, cat:"baking", name:"Monk Fruit Powder", org:false, note:"250g bag"},
+  {id:59, cat:"baking", name:"Xylitol", org:false, note:"500g bag"},
+  {id:60, cat:"baking", name:"Raw Cacao Powder — Certified Organic", org:true, note:"250g bag"},
+  {id:61, cat:"baking", name:"Cacao Nibs — Certified Organic", org:true, note:"250g bag"},
+  {id:62, cat:"baking", name:"Raw Carob Powder — Certified Organic", org:true, note:"250g bag"},
+  {id:63, cat:"baking", name:"Roasted Carob Powder — Certified Organic", org:true, note:"250g bag"},
+  {id:64, cat:"baking", name:"Coconut Flour — Certified Organic", org:true, note:"500g bag"},
+  {id:65, cat:"baking", name:"Almond Meal Blanched", org:false, note:"500g bag"},
+  {id:66, cat:"baking", name:"Buckwheat Flour — Certified Organic", org:true, note:"500g bag"},
+  {id:67, cat:"baking", name:"Wholemeal Spelt Flour — Certified Organic", org:true, note:"1kg bag"},
+  {id:68, cat:"baking", name:"White Spelt Flour — Certified Organic", org:true, note:"1kg bag"},
+  {id:69, cat:"baking", name:"Quinoa Flour — Certified Organic", org:true, note:"500g bag"},
+  {id:70, cat:"baking", name:"Gluten Free Plain Flour", org:false, note:"500g bag"},
+  {id:71, cat:"baking", name:"Gluten Free Self-Raising Flour", org:false, note:"500g bag"},
+  {id:72, cat:"baking", name:"Himalayan Pink Salt Fine — Organic", org:true, note:"500g bag"},
+  {id:73, cat:"baking", name:"Celtic Sea Salt Fine — Certified Organic", org:true, note:"500g bag"},
+  {id:74, cat:"baking", name:"Nutritional Yeast", org:false, note:"200g bag"},
+  {id:75, cat:"baking", name:"Sodium Bicarbonate", org:false, note:"500g bag"},
+  {id:76, cat:"baking", name:"Citric Acid", org:false, note:"500g bag"},
+  {id:77, cat:"baking", name:"Vegan Pancake Mix", org:false, note:"500g pack"},
+  {id:78, cat:"baking", name:"Buckwheat Pancake Mix — Organic", org:true, note:"500g pack"},
+  {id:79, cat:"baking", name:"Desiccated Coconut", org:false, note:"500g bag"},
+  {id:80, cat:"baking", name:"Sunflower Lecithin", org:false, note:"250g bag"},
+
+  // CHOCOLATE & CAROB
+  {id:81,  cat:"choc", name:"Dark Chocolate 70% Blocks — Organic", org:true, note:"200g block"},
+  {id:82,  cat:"choc", name:"Dark Chocolate Almonds — Organic", org:true, note:"250g bag"},
+  {id:83,  cat:"choc", name:"Milk Chocolate Almonds — Organic", org:true, note:"250g bag"},
+  {id:84,  cat:"choc", name:"Dark Chocolate Blueberries — Organic", org:true, note:"200g bag"},
+  {id:85,  cat:"choc", name:"Dark Chocolate Ginger — Organic", org:true, note:"200g bag"},
+  {id:86,  cat:"choc", name:"Vegan Dark Chocolate Ginger", org:false, note:"200g bag"},
+  {id:87,  cat:"choc", name:"Dark Chocolate Goji Berries — Organic", org:true, note:"200g bag"},
+  {id:88,  cat:"choc", name:"Dark Chocolate Macadamias", org:false, note:"200g bag"},
+  {id:89,  cat:"choc", name:"Milk Chocolate Macadamias", org:false, note:"200g bag"},
+  {id:90,  cat:"choc", name:"Dark Chocolate Coconut Balls", org:false, note:"200g bag"},
+  {id:91,  cat:"choc", name:"Vegan Chow Cacao Rocky Road — Organic", org:true, note:"200g bag"},
+  {id:92,  cat:"choc", name:"Dark Chocolate Licorice — Organic", org:true, note:"200g bag"},
+  {id:93,  cat:"choc", name:"Dark Chocolate Dates", org:false, note:"200g bag"},
+  {id:94,  cat:"choc", name:"Carob Buttons", org:false, note:"200g bag"},
+  {id:95,  cat:"choc", name:"Carob Coconut Rough", org:false, note:"200g bag"},
+  {id:96,  cat:"choc", name:"Carob Ginger", org:false, note:"200g bag"},
+  {id:97,  cat:"choc", name:"Dark Chocolate Pumpkin Seeds", org:false, note:"200g bag"},
+
+  // TEAS & HERBAL BLENDS — packaged / pre-blended (naturopath's signature blends first)
+  {id:98,  cat:"teas", name:"Sweet Dreams Blend — Certified Organic", org:true, note:"Lemon balm, moringa, chamomile, lavender & lemon myrtle · 50g"},
+  {id:99,  cat:"teas", name:"Adrenal Support Blend", org:false, note:"Ashwagandha, goji, gingko, siberian ginseng, licorice root · 50g"},
+  {id:100, cat:"teas", name:"Detox Blend — Certified Organic", org:true, note:"Calendula, fennel, nettle, licorice, rose petals & lemongrass · 50g"},
+  {id:101, cat:"teas", name:"Tummy Tea Blend — Certified Organic", org:true, note:"Fennel, licorice, moringa & peppermint · 50g"},
+  {id:102, cat:"teas", name:"Chamomile — Certified Organic", org:true, note:"Whole flowers · 50g"},
+  {id:103, cat:"teas", name:"Peppermint — Certified Organic", org:true, note:"Loose leaf · 50g"},
+  {id:104, cat:"teas", name:"Spearmint — Certified Organic", org:true, note:"Loose leaf · 50g"},
+  {id:105, cat:"teas", name:"Lemon Balm — Certified Organic", org:true, note:"Loose leaf · 50g"},
+  {id:106, cat:"teas", name:"Lemon Myrtle — Certified Organic", org:true, note:"Australian · 50g"},
+  {id:107, cat:"teas", name:"Hibiscus Flowers — Certified Organic", org:true, note:"Loose leaf · 50g"},
+  {id:108, cat:"teas", name:"Rooibos — Certified Organic", org:true, note:"Loose leaf · 50g"},
+  {id:109, cat:"teas", name:"Dandelion Root Roasted — Organic", org:true, note:"Loose leaf · 50g"},
+  {id:110, cat:"teas", name:"Echinacea — Certified Organic", org:true, note:"Loose leaf · 50g"},
+  {id:111, cat:"teas", name:"Nettle Leaf — Certified Organic", org:true, note:"Loose leaf · 50g"},
+  {id:112, cat:"teas", name:"Ashwagandha — Certified Organic", org:true, note:"Loose leaf · 50g"},
+  {id:113, cat:"teas", name:"Ginger Root — Certified Organic", org:true, note:"Loose leaf · 50g"},
+  {id:114, cat:"teas", name:"Milk Thistle Seed — Certified Organic", org:true, note:"50g"},
+  {id:115, cat:"teas", name:"Valerian — Certified Organic", org:true, note:"50g"},
+  {id:116, cat:"teas", name:"Lavender Flowers — Certified Organic", org:true, note:"50g"},
+  {id:117, cat:"teas", name:"Rosehip Granules — Certified Organic", org:true, note:"50g"},
+  {id:118, cat:"teas", name:"Sencha Green Tea — Certified Organic", org:true, note:"50g"},
+  {id:119, cat:"teas", name:"Love Chai — Certified Organic", org:true, note:"50g blend"},
+  {id:120, cat:"teas", name:"Dandelion Roasted Chai — Organic", org:true, note:"50g blend"},
+  {id:121, cat:"teas", name:"Prana Chai Original Blend", org:false, note:"Packaged"},
+  {id:122, cat:"teas", name:"Butterfly Pea Flowers", org:false, note:"50g"},
+
+  // SUPPLEMENT POWDERS — key packaged items
+  {id:123, cat:"supps", name:"Spirulina Powder — Certified Organic", org:true, note:"200g bag"},
+  {id:124, cat:"supps", name:"Spirulina Powder Hawaiian", org:false, note:"200g bag"},
+  {id:125, cat:"supps", name:"Maca Powder — Certified Organic", org:true, note:"200g bag"},
+  {id:126, cat:"supps", name:"Lion's Mane Powder — Certified Organic", org:true, note:"Evolution Botanicals · 100g"},
+  {id:127, cat:"supps", name:"Lion's Mane Powder Superfeast", org:false, note:"100g"},
+  {id:128, cat:"supps", name:"Reishi Powder — Certified Organic", org:true, note:"100g"},
+  {id:129, cat:"supps", name:"Chaga Powder — Certified Organic", org:true, note:"100g"},
+  {id:130, cat:"supps", name:"Cordyceps Powder", org:false, note:"100g"},
+  {id:131, cat:"supps", name:"Mushroom Blend — Superfeast Mason's", org:false, note:"100g"},
+  {id:132, cat:"supps", name:"Mushroom Blend 10 Formula — Organic", org:true, note:"Evolution Botanicals · 100g"},
+  {id:133, cat:"supps", name:"Ashwagandha Powder — Certified Organic", org:true, note:"200g bag"},
+  {id:134, cat:"supps", name:"Moringa Powder", org:false, note:"200g bag"},
+  {id:135, cat:"supps", name:"Camu Camu — Certified Organic", org:true, note:"100g bag"},
+  {id:136, cat:"supps", name:"Matcha Green Tea Powder — Organic", org:true, note:"100g bag"},
+  {id:137, cat:"supps", name:"Barley Grass Powder — Organic", org:true, note:"200g bag"},
+  {id:138, cat:"supps", name:"Wheatgrass Powder — Certified Organic", org:true, note:"200g bag"},
+  {id:139, cat:"supps", name:"Colostrum", org:false, note:"200g"},
+  {id:140, cat:"supps", name:"L-Glutamine", org:false, note:"250g bag"},
+  {id:141, cat:"supps", name:"MSM Powder", org:false, note:"250g bag"},
+  {id:142, cat:"supps", name:"Creatine Monohydrate", org:false, note:"250g bag"},
+  {id:143, cat:"supps", name:"Magnesium Chelated 20%", org:false, note:"250g bag"},
+  {id:144, cat:"supps", name:"Magnesium Citrate 15%", org:false, note:"250g bag"},
+  {id:145, cat:"supps", name:"Hemp Protein Powder — Certified Organic", org:true, note:"500g bag"},
+  {id:146, cat:"supps", name:"Pea Protein Isolate", org:false, note:"500g bag"},
+  {id:147, cat:"supps", name:"Whey Protein Concentrate (Grass Fed)", org:false, note:"500g bag"},
+  {id:148, cat:"supps", name:"Prana Protein — Salted Caramel", org:false, note:"Packaged"},
+  {id:149, cat:"supps", name:"Prana Protein — Chocolate", org:false, note:"Packaged"},
+  {id:150, cat:"supps", name:"Lucuma Powder — Certified Organic", org:true, note:"200g bag"},
+  {id:151, cat:"supps", name:"Bee Pollen Granules", org:false, note:"250g"},
+  {id:152, cat:"supps", name:"Coconut Milk Powder — Certified Organic", org:true, note:"250g"},
+  {id:153, cat:"supps", name:"Inulin Powder — Certified Organic", org:true, note:"250g"},
+  {id:154, cat:"supps", name:"Alkalising Greens Morlife — Tropical", org:false, note:"Packaged"},
+  {id:155, cat:"supps", name:"Gut Restore Morlife", org:false, note:"Packaged"},
+
+  // ECO CLEANING & BEAUTY
+  {id:156, cat:"eco", name:"Enviroclean Front Load Laundry Liquid", org:false, note:"Per litre — BYO container"},
+  {id:157, cat:"eco", name:"Enviroclean Heavy Duty All Purpose Cleaner", org:false, note:"Per litre — BYO container"},
+  {id:158, cat:"eco", name:"Simply Clean Dish Liquid", org:false, note:"Per litre — BYO container"},
+  {id:159, cat:"eco", name:"Simply Clean Laundry Powder", org:false, note:"1kg bag"},
+  {id:160, cat:"eco", name:"Simply Clean Dishwasher Powder", org:false, note:"1kg bag"},
+  {id:161, cat:"eco", name:"Om Alchemy Multipurpose Cleaning Powder", org:false, note:"500g"},
+  {id:162, cat:"eco", name:"Dr Bronner's Hemp & Lavender Castille Soap", org:false, note:"500ml bottle"},
+  {id:163, cat:"eco", name:"Palm Free Natural Castille Soap", org:false, note:"Per litre — BYO container"},
+  {id:164, cat:"eco", name:"Aloe Vera Gel — Certified Organic", org:true, note:"250ml"},
+  {id:165, cat:"eco", name:"Castor Oil — Certified Organic", org:true, note:"250ml"},
+  {id:166, cat:"eco", name:"Jojoba Oil — Certified Organic", org:true, note:"100ml"},
+  {id:167, cat:"eco", name:"Shea Butter — Certified Organic", org:true, note:"200g"},
+  {id:168, cat:"eco", name:"Biologika Coconut Hand & Body Wash", org:false, note:"500ml"},
+  {id:169, cat:"eco", name:"Biologika Lavender & Ylang Ylang Shampoo", org:false, note:"500ml"},
+  {id:170, cat:"eco", name:"Biologika Lavender & Ylang Ylang Conditioner", org:false, note:"500ml"},
+];
+
+const CAT_LABELS = {
+  nuts:"Nuts & Seeds",grains:"Grains & Legumes",baking:"Cooking & Baking",
+  choc:"Chocolate & Carob",teas:"Teas & Herbal Blends",supps:"Supplement Powders",eco:"Eco Cleaning & Beauty"
+};
+
+let cart = {}, activeCategory = "all", searchQuery = "";
+
+function getFiltered() {
+  return PRODUCTS.filter(p => {
+    const mc = activeCategory === "all" || p.cat === activeCategory;
+    const ms = !searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase()) || (p.note && p.note.toLowerCase().includes(searchQuery.toLowerCase()));
+    return mc && ms;
+  });
+}
+
+function renderProducts() {
+  const filtered = getFiltered();
+  const container = document.getElementById("productsContainer");
+  const noResults = document.getElementById("noResults");
+  if (!filtered.length) { container.innerHTML = ""; noResults.style.display = "block"; return; }
+  noResults.style.display = "none";
+  const groups = {};
+  filtered.forEach(p => { if (!groups[p.cat]) groups[p.cat] = []; groups[p.cat].push(p); });
+  container.innerHTML = Object.entries(groups).map(([cat, products]) => `
+    <div class="category-section">
+      <div class="category-label">${CAT_LABELS[cat]} <span style="color:#ccc;font-weight:400">(${products.length} items)</span></div>
+      <div class="product-grid">
+        ${products.map(p => `
+          <div class="product-row ${cart[p.id]?'in-cart':''}" id="row-${p.id}">
+            <div class="product-info">
+              <div class="product-name">${p.name}</div>
+              <div class="product-org">${p.note}${p.org?' · 🌿 Certified Organic':''}</div>
+            </div>
+            <div class="product-price">Price TBC</div>
+            <div class="qty-control">
+              <button class="qty-btn" onclick="changeQty(${p.id},-1)">−</button>
+              <div class="qty-display" id="qty-${p.id}">${cart[p.id]||0}</div>
+              <button class="qty-btn" onclick="changeQty(${p.id},1)">+</button>
+            </div>
+          </div>`).join("")}
+      </div>
+    </div>`).join("");
+}
+
+function changeQty(id, delta) {
+  const nq = Math.max(0, (cart[id]||0) + delta);
+  if (nq === 0) delete cart[id]; else cart[id] = nq;
+  const row = document.getElementById(`row-${id}`);
+  const qtyEl = document.getElementById(`qty-${id}`);
+  if (row) row.classList.toggle("in-cart", !!cart[id]);
+  if (qtyEl) qtyEl.textContent = cart[id]||0;
+  renderCart();
+}
+
+function renderCart() {
+  const cartEmpty = document.getElementById("cartEmpty");
+  const cartContent = document.getElementById("cartContent");
+  const cartItems = document.getElementById("cartItems");
+  const items = Object.entries(cart);
+  if (!items.length) { cartEmpty.style.display="block"; cartContent.style.display="none"; return; }
+  cartEmpty.style.display="none"; cartContent.style.display="block";
+  cartItems.innerHTML = items.map(([id,qty]) => {
+    const p = PRODUCTS.find(x => x.id == id);
+    return `<div class="cart-item">
+      <span class="cart-item-name">${p.name}</span>
+      <span class="cart-item-qty">× ${qty}</span>
+      <button class="cart-item-remove" onclick="removeItem(${id})" title="Remove">✕</button>
+    </div>`;
+  }).join("");
+}
+
+function removeItem(id) {
+  delete cart[id];
+  const row = document.getElementById(`row-${id}`);
+  const qtyEl = document.getElementById(`qty-${id}`);
+  if (row) row.classList.remove("in-cart");
+  if (qtyEl) qtyEl.textContent = "0";
+  renderCart();
+}
+
+function submitOrder() {
+  const name = document.getElementById("custName").value.trim();
+  const phone = document.getElementById("custPhone").value.trim();
+  const time = document.getElementById("pickupTime").value;
+  if (!name) { alert("Please enter your name."); return; }
+  if (!phone) { alert("Please enter your phone number."); return; }
+  if (!time) { alert("Please select a pickup time."); return; }
+  if (!Object.keys(cart).length) { alert("Your cart is empty!"); return; }
+  document.getElementById("orderForm").style.display="none";
+  document.getElementById("cartItems").style.display="none";
+  document.querySelector(".cart-total").style.display="none";
+  document.querySelector(".cart-note").style.display="none";
+  document.querySelector(".order-card h3").style.display="none";
+  document.getElementById("successMsg").style.display="block";
+}
+
+document.getElementById("categoryTabs").addEventListener("click", e => {
+  if (e.target.classList.contains("cat-tab")) {
+    document.querySelectorAll(".cat-tab").forEach(t => t.classList.remove("active"));
+    e.target.classList.add("active");
+    activeCategory = e.target.dataset.cat;
+    renderProducts();
+  }
+});
+document.getElementById("searchInput").addEventListener("input", e => {
+  searchQuery = e.target.value;
+  renderProducts();
+});
+
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
